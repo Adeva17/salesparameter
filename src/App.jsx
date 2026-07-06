@@ -551,9 +551,9 @@ function App() {
 
       {/* HEADER SECTION */}
       <header className="border-b border-slate-200/80 bg-white px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 sticky top-0 z-40 shadow-sm">
-        <div className="flex items-center gap-4">
-          <img src={logoNutrifood} alt="Logo Nutrifood" className="h-9 object-contain" />
-          <div className="h-8 w-px bg-slate-200 hidden md:block" />
+        <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 sm:gap-4 text-center sm:text-left w-full sm:w-auto">
+          <img src={logoNutrifood} alt="Logo Nutrifood" className="h-8 sm:h-9 object-contain" />
+          <div className="h-8 w-px bg-slate-200 hidden sm:block" />
           <div>
             <h1 className="text-lg font-black tracking-tight text-slate-900">
               Simulator Kinerja Penjualan
@@ -563,7 +563,7 @@ function App() {
         </div>
 
         {/* Preset Scenarios Buttons */}
-        <div className="flex items-center gap-1.5 bg-slate-100 p-1 border border-slate-200 rounded-xl">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 bg-slate-100 p-1.5 border border-slate-200 rounded-xl w-full md:w-auto overflow-x-auto max-w-full">
           <button 
             onClick={() => applyPreset('baseline')}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${activePreset === 'baseline' ? 'bg-emerald-600 text-white shadow-md' : 'hover:bg-slate-200 text-slate-600'}`}
@@ -703,30 +703,29 @@ function App() {
         </section>
 
         {/* CENTER & RIGHT COLUMN: MAIN CONTENT (8 cols) */}
-        <section className="lg:col-span-8 flex flex-col gap-6">
+        <section className="lg:col-span-8 flex flex-col gap-6 min-w-0 w-full">
           
           {/* TOP AREA: THE INTERACTIVE METRICS TREE */}
           <div 
             id="metrics-tree-canvas"
-            className={`glass-panel-glow p-5 flex flex-col flex-1 min-h-[500px] bg-white transition-all duration-300 ${tutorialStep === 3 ? 'ring-4 ring-emerald-500 ring-offset-4 ring-offset-slate-50 scale-[1.01] z-30 shadow-2xl' : ''}`}
+            className={`glass-panel-glow p-3 sm:p-5 flex flex-col flex-1 min-h-[500px] bg-white min-w-0 w-full overflow-hidden transition-all duration-300 ${tutorialStep === 3 ? 'ring-4 ring-emerald-500 ring-offset-4 ring-offset-slate-50 scale-[1.01] z-30 shadow-2xl' : ''}`}
           >
             <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
               <h2 className="text-sm font-extrabold text-slate-800 flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-emerald-600" /> Pohon Alur Metrik (Interactive Tree)
               </h2>
-              <div className="flex items-center gap-3 text-[10px] text-slate-500 font-bold">
-                <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Nilai Naik</span>
-                <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Nilai Turun</span>
-                <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-emerald-600"></span> Arah Rumus</span>
+              <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3 text-[10px] text-slate-500 font-bold">
+                <span className="flex items-center gap-1"><span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-500"></span> Nilai Naik</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-rose-500"></span> Nilai Turun</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-600"></span> Arah Rumus</span>
               </div>
             </div>
 
             {/* Tree Canvas Wrapper with Horizontal Scroll on Mobile */}
-            <div className="overflow-x-auto border border-slate-100 rounded-xl shadow-inner bg-slate-50 scrollbar-thin">
+            <div className="overflow-x-auto w-full max-w-full border border-slate-100 rounded-xl shadow-inner bg-slate-50 scrollbar-thin">
               <div 
                 ref={containerRef} 
                 className="relative w-[850px] h-[550px] overflow-hidden select-none"
-                style={{ touchAction: 'none' }}
               >
               
               {/* SVG Connector overlay */}
@@ -1165,7 +1164,7 @@ function NodeCard({
   return (
     <div 
       id={`node-card-${varKey}`}
-      style={{ ...posStyle, transform: 'translate(-50%, -50%)', cursor: isDragging ? 'grabbing' : 'grab' }}
+      style={{ ...posStyle, transform: 'translate(-50%, -50%)', cursor: isDragging ? 'grabbing' : 'grab', touchAction: 'none' }}
       onMouseDown={(e) => onMouseDown && onMouseDown(varKey, e)}
       onTouchStart={(e) => onTouchStart && onTouchStart(varKey, e)}
       className={`absolute w-40 flex flex-col p-2.5 rounded-xl border border-slate-200 text-left ${getNodeFlashClass(varKey)} ${activeBorders[accent]} ${isPulsingHighlight ? 'ring-2 ring-emerald-500 scale-[1.03] shadow' : ''} ${isDragging ? 'shadow-lg z-50 scale-[1.05] border-emerald-500/80 ring-2 ring-emerald-500/30' : 'transition-all duration-300'}`}
